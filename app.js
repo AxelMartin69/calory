@@ -1,25 +1,46 @@
-// revealing module pattern
-// it will be Item Controller
-const ItemController = (function(){
-    let data = []
+// Storage Controller
+// create later
 
-    function add (item){
-        data.push(item)
-        console.log('Item is added');
+// Item Controller
+const ItemCtrl = (function() {
+    //Item Constructor
+    const Item = function(id, name, calories){
+        this.id = id
+        this.name = name
+        this.calories = calories
     }
 
-    function get (id) {
-        return data.find(item => {
-            return item.id === id
-        })
+    // Data Structure
+    const data = {
+        items: [
+            {id: 0, name: 'Steak Dinner', calories: 1200},
+            {id: 1, name: 'Cookie', calories: 400},
+            {id: 2, name: 'Eggs', calories: 300}
+        ],
+        total: 0
     }
 
     return {
-        add: add,
-        get: get
+        logData: function(){
+            return data
+        }
     }
-
 })();
 
-ItemController.add({id:1, name:'Kate'})
-console.log(ItemController.get(1));
+
+// UI Controller
+const UICtrl = (function(){
+    console.log('UICtrl');
+})();
+
+// App Controller
+const App = (function(ItemCtrl, UICtrl){
+    return {
+        init: function(){
+            console.log('Initializing App');
+        }
+    }
+})(ItemCtrl, UICtrl);
+
+// Initialize App
+App.init()
